@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\RazaController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,6 +26,38 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+Route::middleware(['auth:sanctum'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+//LISTA DE RUTAS DATATABLES
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('razas/list', [RazaController::class, 'getRazas'])->name('razas.list');
+    Route::get('usuarios/list', [UsuarioController::class, 'getUsuarios'])->name('usuarios.list');
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    /*
+    Route::resource('bovinos', BovinoController::class)->except(['show', 'create'])->names([
+        'index' => 'bovinos.index',
+        'store' => 'bovinos.store',
+        'edit' => 'bovinos.edit',
+        'update' => 'bovinos.update',
+        'destroy' => 'bovinos.destroy',
+    ]);
+    */
+    Route::resource('usuarios', UsuarioController::class)->except(['show', 'create'])->names([
+        'index' => 'usuarios.index',
+        'store' => 'usuarios.store',
+        'edit' => 'usuarios.edit',
+        'update' => 'usuarios.update',
+        'destroy' => 'usuarios.destroy',
+    ]);
+    Route::resource('razas', RazaController::class)->except(['show', 'create'])->names([
+        'index' => 'razas.index',
+        'store' => 'razas.store',
+        'edit' => 'razas.edit',
+        'update' => 'razas.update',
+        'destroy' => 'razas.destroy',
+    ]);
+});

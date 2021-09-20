@@ -23,10 +23,16 @@ class User extends Authenticatable
      *
      * @var string[]
      */
+    public $timestamps = false;
+    public $table = "usuarios";
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'nombres_usuario',
+        'apellidos_usuario',
+        'direccion_usuario',
+        'correo_usuario',
+        'telefono_usuario',
+        'clave_usuario',
+        'rol_usuario',
     ];
 
     /**
@@ -36,26 +42,5 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = [
-        'profile_photo_url',
     ];
 }
